@@ -1,4 +1,4 @@
-plot2 <- function(){
+plot4 <- function(){
     cn <- c("Date","Time","Global_active_power","Global_reactive_power",
             "Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")
     power_cons <- read.table("./household_power_consumption.txt.mod",sep=";",
@@ -11,10 +11,19 @@ plot2 <- function(){
     dateTime <- as.POSIXlt(paste(power_cons$upd_date, power_cons$Time, sep=" "))
     histfe <- reqs_list$Global_active_power
     his<-as.vector(histfe, mode = "any")
-    png(file="plot2.png",width=480,height=480)
-    
+    png(file="plot4.png",width=480,height=480)
+    par(mfrow = c(2, 2))
     plot(dateTime,as.numeric(his),type="o",col="black",pch="",
-         ylab="Global Active Power (kilowatts)",xlab="")
+         ylab="Global Active Power",xlab="")
+    plot(dateTime,reqs_list$Voltage,type="o",col="black",pch="",
+         ylab="Voltage")
+    plot(dateTime,reqs_list$Sub_metering_1,type="o",col="black",pch="",
+         ylab="Energy sub metering",xlab="")
+    lines(dateTime,reqs_list$Sub_metering_2,type="o",col="red",pch="")
+    lines(dateTime,reqs_list$Sub_metering_3,type="o",col="blue",pch="")
+    legend("topright", pch = "", col = c("black", "red","blue"), lwd=c(1,1),
+           legend = c("Sub_metering_1", "Sub_metering_2","Sub_metering_3"))
+    plot(dateTime,reqs_list$Global_reactive_power,type="o",col="black",pch="",
+         ylab="Global_reactive_power")
     dev.off()
 }
-    

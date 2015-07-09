@@ -14,7 +14,7 @@ plot3 <- function(){
     png(file="plot3.png",width=480,height=480)
     
     plot(dateTime,reqs_list$Sub_metering_1,type="o",col="black",pch="",
-         ylab="Energy sub metering")
+         ylab="Energy sub metering",xlab="")
     lines(dateTime,reqs_list$Sub_metering_2,type="o",col="red",pch="")
     lines(dateTime,reqs_list$Sub_metering_3,type="o",col="blue",pch="")
     legend("topright", pch = "", col = c("black", "red","blue"), lwd=c(1,1),
